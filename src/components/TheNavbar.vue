@@ -1,10 +1,21 @@
 <template>
-$END$
+  <header class="navbar">
+    <h3>Мои задачи</h3>
+    <ul class="navbar-menu">
+      <li>
+        <router-link to="/alltasks">Все задачи</router-link>
+      </li>
+      <li>
+        <router-link to="/newtask">+Новая задача</router-link>
+      </li>
+    </ul>
+  </header>
+
 </template>
 
 <script>
 export default {
-name: "TheNavbar"
+
 }
 </script>
 
