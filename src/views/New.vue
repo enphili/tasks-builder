@@ -1,25 +1,67 @@
 <template>
-  <form class="card">
+  <form class="card" @submit.prevent="createNewTask" ref="newTaskForm">
     <h1>Создать новую задачу</h1>
     <div class="form-control">
       <label for="title">Название</label>
-      <input type="text" id="title">
+      <input type="text" id="title" v-model="title">
     </div>
 
     <div class="form-control">
       <label for="date">Дата дэдлайна</label>
-      <input type="date" id="date">
+      <input type="date" id="date" v-model="deadlineData">
     </div>
 
     <div class="form-control">
       <label for="description">Описание</label>
-      <textarea id="description"></textarea>
+      <textarea id="description" v-model="description"></textarea>
     </div>
 
-    <button class="btn primary">Создать</button>
+    <button class="btn primary" :disabled="isFields">Создать</button>
   </form>
 </template>
 
 
 <script>
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
+
+export default {
+  setup() {
+    const store = useStore()
+    const title = ref('')
+    const deadlineData = ref('')
+    const description = ref('')
+    const newTaskForm = ref(null)
+
+    const isFields = computed(() => (title.value === '' || deadlineData.value === '' || description.value === ''))
+
+    const status = computed(() => {
+      return (new Date(deadlineData.value) - Date.now()) <= 0 ? 'danger' : ''
+    })
+
+    const createNewTask = () => {
+      store.state.allTasks.push({
+        id: Math.floor(Date.now() / 1000),
+        title: title.value.trim(),
+        status: status.value,
+        createData: new Date().toLocaleDateString(),
+        deadlineData: new Date(deadlineData.value).toLocaleDateString(),
+        description: description.value.trim()
+      })
+      newTaskForm.value.reset()
+    }
+
+    return {
+      title,
+      deadlineData,
+      description,
+      isFields,
+      createNewTask,
+      newTaskForm,
+      status
+    }
+  }
+
+}
+
 </script>
