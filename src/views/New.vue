@@ -24,10 +24,12 @@
 <script>
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
   setup() {
     const store = useStore()
+    const router = useRouter()
     const title = ref('')
     const deadlineData = ref('')
     const description = ref('')
@@ -35,9 +37,7 @@ export default {
 
     const isFields = computed(() => (title.value === '' || deadlineData.value === '' || description.value === ''))
 
-    const status = computed(() => {
-      return (new Date(deadlineData.value) - Date.now()) <= 0 ? 'danger' : ''
-    })
+    const status = computed(() => (new Date(deadlineData.value) - Date.now()) <= 0 ? 'danger' : '')
 
     const createNewTask = () => {
       store.state.allTasks.push({
@@ -49,6 +49,7 @@ export default {
         description: description.value.trim()
       })
       newTaskForm.value.reset()
+      router.push('/alltasks')
     }
 
     return {
