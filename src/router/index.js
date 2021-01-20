@@ -17,7 +17,7 @@ const routes = [
     component: New
   },
   {
-    path: '/task',
+    path: '/tasks/:taskID?',
     name: 'Task',
     component: Task
   }

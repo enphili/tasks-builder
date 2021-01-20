@@ -38,7 +38,8 @@ export default createStore({
         danger: 'Отменена',
         warning: 'Выполняется',
         default: 'Статус не задан'
-      }
+      },
+      currentTaskID: ''
     }
   },
 
@@ -49,6 +50,10 @@ export default createStore({
 
     statusText(state) {
       return state.statusText
+    },
+
+    currentTaskID(state) {
+      return state.currentTaskID
     }
   }
 })
