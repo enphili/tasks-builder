@@ -12,7 +12,3 @@ export default {
   components: {TheNavbar}
 }
 </script>
-
-
-<style>
-</style>
