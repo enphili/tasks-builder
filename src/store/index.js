@@ -35,13 +35,22 @@ export default createStore({
           createData: '17.01/2012',
           deadlineData: '24.01/2012',
           description: 'Тут какоето описание задачи, может быть много текста , а может мало'
+        },
+        {
+          id: 16765343434347776,
+          title: 'Название задача -5',
+          status: 'completed',
+          createData: '17.01/2012',
+          deadlineData: '24.01/2012',
+          description: 'Тут какоето описание задачи, может быть много текста , а может мало'
         }
       ],
       statusText: {
-        primary: 'Активна',
+        primary: 'В ожидании',
         danger: 'Отменена',
         warning: 'Выполняется',
-        default: 'Статус не задан'
+        default: 'Статус не задан',
+        completed: 'Выполнена'
       },
       currentTaskID: ''
     }

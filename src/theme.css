@@ -412,8 +412,8 @@ h3 {
 }
 
 .badge.primary {
-    border-color: #3eaf7c;
-    color: #3eaf7c;
+    border-color: #ffcc07;
+    color: #ffcc07;
 }
 
 .badge.danger {
@@ -422,8 +422,13 @@ h3 {
 }
 
 .badge.warning {
-    border-color: #c25205;
-    color: #c25205;
+    border-color: #1584fc;
+    color: #1584fc;
+}
+
+.badge.completed {
+    border-color: #3eaf7c;
+    color: #3eaf7c;
 }
 
 .text-white {
