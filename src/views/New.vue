@@ -49,7 +49,7 @@ export default {
         description: description.value.trim()
       })
       newTaskForm.value.reset()
-      router.push('/alltasks')
+      router.push('/dashboard')
     }
 
     return {

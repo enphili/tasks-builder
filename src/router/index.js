@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Tasks from '@/views/Tasks'
-import Task from '@/views/Task';
-import New from '@/views/New';
+import Task from '@/views/Task'
+import New from '@/views/New'
+import CurrentTask from '@/views/CurrentTask'
 
 
 const routes = [
   {
-    path: '/alltasks',
+    path: '/dashboard',
     alias: '/',
     name: 'Tasks',
     component: Tasks
@@ -17,9 +18,12 @@ const routes = [
     component: New
   },
   {
-    path: '/tasks/:taskID?',
-    name: 'Task',
-    component: Task
+    path: '/tasks',
+    component: Task,
+    children: [{path: ':taskID?', component: CurrentTask, props: true}]
+  },
+  {
+    path: '/:notfound(.*)', redirect: '/dashboard'
   }
 ]
 

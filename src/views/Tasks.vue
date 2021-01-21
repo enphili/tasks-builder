@@ -16,6 +16,7 @@
 
 <script>
 import { useStore } from 'vuex'
+import { computed } from 'vue'
 import SinglePreviewTask from '@/components/SinglePreviewTask'
 import TheAllActiveTasksCount from '@/components/TheAllActiveTasksCount'
 
@@ -23,9 +24,12 @@ export default {
   setup() {
     const store = useStore()
 
+    const allTasks = computed(() => store.getters.allTasks)
+    const isTask = computed(() => store.getters.allTasks.length > 0)
+
     return {
-      allTasks: store.getters.allTasks,
-      isTask: store.getters.allTasks.length > 0
+      allTasks ,
+      isTask
     }
   },
 

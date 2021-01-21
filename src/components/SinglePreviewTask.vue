@@ -6,6 +6,7 @@
     </h2>
     <p><strong><small>{{ createData }}</small></strong></p>
     <button class="btn primary" @click="setCurrentTaskID">Посмотреть</button>
+
   </div>
 </template>
 
