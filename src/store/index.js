@@ -68,5 +68,22 @@ export default createStore({
     currentTaskID(state) {
       return state.currentTaskID
     }
+  },
+
+  mutations: {
+    setCurrentID(state, payload) {
+      state.currentTaskID = payload
+    },
+
+    addNewTask(state, payload) {
+      state.allTasks.push({
+        id: Math.floor(Date.now() / 1000),
+        title: payload.title,
+        status: payload.status,
+        createData: new Date().toLocaleDateString(),
+        deadlineData: new Date(payload.deadlineData).toLocaleDateString(),
+        description: payload.description
+      })
+    }
   }
 })

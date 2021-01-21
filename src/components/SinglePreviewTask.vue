@@ -23,7 +23,7 @@ export default {
     const router = useRouter()
 
     const setCurrentTaskID = () => {
-      store.state.currentTaskID = props.task.id
+      store.commit('setCurrentID', props.task.id)
       router.push(`/tasks/${props.task.id}`)
     }
 

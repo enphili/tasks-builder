@@ -40,12 +40,10 @@ export default {
     const status = computed(() => (new Date(deadlineData.value) - Date.now()) <= 0 ? 'danger' : 'primary')
 
     const createNewTask = () => {
-      store.state.allTasks.push({
-        id: Math.floor(Date.now() / 1000),
+      store.commit('addNewTask', {
         title: title.value.trim(),
         status: status.value,
-        createData: new Date().toLocaleDateString(),
-        deadlineData: new Date(deadlineData.value).toLocaleDateString(),
+        deadlineData: deadlineData.value,
         description: description.value.trim()
       })
       newTaskForm.value.reset()
