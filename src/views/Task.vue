@@ -22,7 +22,7 @@ export default {
     const route = useRoute()
 
     const reportedID = Number(route.params.taskID)
-    const isTaskExists = computed(() => !!store.getters.allTasks.find(task => task.id === reportedID))
+    const isTaskExists = computed(() => !!store.getters.allTasksInArray.find(task => task.id === reportedID))
 
     return {
       reportedID,

@@ -40,7 +40,7 @@ export default {
     const status = computed(() => (new Date(deadlineData.value) - Date.now()) <= 0 ? 'danger' : 'primary')
 
     const createNewTask = () => {
-      store.commit('addNewTask', {
+      store.dispatch('saveNewTask', {
         title: title.value.trim(),
         status: status.value,
         deadlineData: deadlineData.value,
@@ -60,7 +60,6 @@ export default {
       status
     }
   }
-
 }
 
 </script>

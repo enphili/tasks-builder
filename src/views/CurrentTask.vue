@@ -35,20 +35,33 @@ export default {
   setup(props) {
     const  store = useStore()
 
-    const currentTask = computed(() => store.getters.allTasks.find(task => task.id === Number(props.taskID)))
-    const taskIndex = computed(() => store.getters.allTasks.indexOf(currentTask.value))
+    const currentTask = computed(() => store.getters.allTasksInArray.find(task => task.id === Number(props.taskID)))
     const isOver = computed(() => currentTask.value.status === 'danger' || currentTask.value.status === 'completed')
+    const firebaseNameKey = computed(() => Object.keys(store.getters.allTasks).find(key => store.getters.allTasks[key].id === Number(props.taskID)))
 
-    const cancelTask = () => store.state.allTasks[taskIndex.value].status = 'danger'
-    const takeToWork = () => store.state.allTasks[taskIndex.value].status = 'warning'
-    const completeTask = () => store.state.allTasks[taskIndex.value].status = 'completed'
+    store.commit('setCurrentFireBaseKey', firebaseNameKey.value)
+
+    const cancelTask = () => {
+      store.commit('updateTaskStatus', 'danger')
+      store.dispatch('updateAllTasksInBD', {key: firebaseNameKey.value, status: 'danger'})
+    }
+
+    const takeToWork = () => {
+      store.commit('updateTaskStatus', 'warning')
+      store.dispatch('updateAllTasksInBD', {key: firebaseNameKey.value, status: 'warning'})
+    }
+
+    const completeTask = () => {
+      store.commit('updateTaskStatus', 'completed')
+      store.dispatch('updateAllTasksInBD', {key: firebaseNameKey.value, status: 'completed'})
+    }
 
     return {
       currentTask,
-      taskIndex,
       cancelTask,
       takeToWork,
       completeTask,
+      firebaseNameKey,
       isOver
     }
   },

@@ -6,12 +6,12 @@
 
     <component
       is="SinglePreviewTask"
-      v-for="task in allTasks"
-      :key="task.id"
+      v-for="(task, idx) in allTasks"
+      :key="idx"
       :task="task"
+      :firebaseKey="idx"
     ></component>
   </div>
-
 </template>
 
 <script>
@@ -25,7 +25,7 @@ export default {
     const store = useStore()
 
     const allTasks = computed(() => store.getters.allTasks)
-    const isTask = computed(() => store.getters.allTasks.length > 0)
+    const isTask = computed(() => Object.keys(store.getters.allTasks).length > 0)
 
     return {
       allTasks ,

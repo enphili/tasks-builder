@@ -5,7 +5,11 @@
       <AppStatus :type="status" />
     </h2>
     <p><strong><small>{{ createData }}</small></strong></p>
-    <button class="btn primary" @click="setCurrentTaskID">Посмотреть</button>
+    <button
+      class="btn primary"
+      :firebaseKey="firebaseKey"
+      @click="setCurrentTaskID"
+    >Посмотреть</button>
 
   </div>
 </template>
@@ -16,7 +20,7 @@ import { useRouter } from 'vue-router'
 import AppStatus from '@/components/AppStatus'
 
 export default {
-  props: ['task'],
+  props: ['task', 'firebaseKey'],
 
   setup(props) {
     const store = useStore()
@@ -24,6 +28,7 @@ export default {
 
     const setCurrentTaskID = () => {
       store.commit('setCurrentID', props.task.id)
+      store.commit('setCurrentFireBaseKey', props.firebaseKey)
       router.push(`/tasks/${props.task.id}`)
     }
 
