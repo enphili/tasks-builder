@@ -39,6 +39,7 @@ export default {
     const isFields = computed(() => (title.value === '' || deadlineData.value === '' || description.value === ''))
     const status = computed(() => (new Date(deadlineData.value) - Date.now()) <= 0 ? 'danger' : 'primary')
 
+
     const createNewTask = () => {
       const newKey = `-MR_${strRandomGenerate()}`
       store.state.allTasks[newKey] = {

@@ -1,3 +1,5 @@
+import {replaceFormDate} from '@/utilities/replaceFormatDate'
+
 export const sortTasksObject = (obj) => {
   const array = []
   for (let key in obj) {
@@ -6,9 +8,6 @@ export const sortTasksObject = (obj) => {
       array.push(obj[key])
     }
   }
-  array.sort((a, b) => {
-    const pattern = /(\d{2})\.(\d{2})\.(\d{4})/
-    return new Date(b.createData.replace(pattern,'$3-$2-$1')) - new Date(a.createData.replace(pattern,'$3-$2-$1'))
-  })
+  array.sort((a, b) => new Date(replaceFormDate(b.createData)) - new Date(replaceFormDate(a.createData)))
   return array
 }

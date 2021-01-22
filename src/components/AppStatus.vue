@@ -14,9 +14,7 @@ export default {
 
     const changeText = computed(() => props.type ? store.getters.statusText[props.type] : store.getters.statusText.default)
 
-    return {
-      changeText
-    }
+    return {changeText}
   }
 }
 </script>

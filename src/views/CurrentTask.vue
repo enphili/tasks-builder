@@ -39,25 +39,17 @@ export default {
 
     const currentTask = computed(() => store.getters.allTasksInArray.find(task => task.id === Number(props.taskID)))
     const isOver = computed(() => currentTask.value.status === 'danger' || currentTask.value.status === 'completed')
-    const firebaseNameKey = computed(() => Object.keys(store.getters.allTasks).find(key => store.getters.allTasks[key].id === Number(props.taskID)))
+    const firebaseNameKey = computed(() => currentTask.value.firebaseKey)
 
     store.commit('setCurrentFireBaseKey', firebaseNameKey.value)
 
-    const deleteTask = () => {
-      store.commit('deleteTask', firebaseNameKey.value)
-    }
+    const deleteTask = () => store.commit('deleteTask', firebaseNameKey.value)
 
-    const cancelTask = () => {
-      store.commit('updateTaskStatus', 'danger')
-    }
+    const cancelTask = () => store.commit('updateTaskStatus', 'danger')
 
-    const takeToWork = () => {
-      store.commit('updateTaskStatus', 'warning')
-    }
+    const takeToWork = () => store.commit('updateTaskStatus', 'warning')
 
-    const completeTask = () => {
-      store.commit('updateTaskStatus', 'completed')
-    }
+    const completeTask = () => store.commit('updateTaskStatus', 'completed')
 
     return {
       currentTask,
