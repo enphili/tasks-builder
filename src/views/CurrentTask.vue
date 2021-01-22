@@ -20,6 +20,8 @@
               :disabled="isOver"
       >Отменить</button>
 
+      <button class="btn danger onright" @click="deleteTask">Убрать в архив</button>
+
     </div>
   </div>
 </template>
@@ -41,6 +43,10 @@ export default {
 
     store.commit('setCurrentFireBaseKey', firebaseNameKey.value)
 
+    const deleteTask = () => {
+      store.dispatch('removeTaskToArchive')
+    }
+
     const cancelTask = () => {
       store.commit('updateTaskStatus', 'danger')
       store.dispatch('updateAllTasksInBD', {key: firebaseNameKey.value, status: 'danger'})
@@ -61,6 +67,7 @@ export default {
       cancelTask,
       takeToWork,
       completeTask,
+      deleteTask,
       firebaseNameKey,
       isOver
     }

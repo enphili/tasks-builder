@@ -13,7 +13,8 @@ export default createStore({
       },
       currentTaskID: '',
       fireBaseKey: '',
-      databaseUrl: 'https://spatasksbuilder-default-rtdb.europe-west1.firebasedatabase.app/tasks'
+      databaseUrl: 'https://spatasksbuilder-default-rtdb.europe-west1.firebasedatabase.app/tasks',
+      databaseArchiveUrl: 'https://spatasksbuilder-default-rtdb.europe-west1.firebasedatabase.app/archive.json'
     }
   },
 
@@ -36,10 +37,18 @@ export default createStore({
 
     fireBaseKey(state) {
       return state.fireBaseKey
+    },
+
+    getCurrentTask(_, getters) {
+      return getters.allTasks[getters.fireBaseKey]
     }
   },
 
   mutations: {
+    deleteTask(state, payload) {
+      delete state.allTasks[payload]
+    },
+
     updateTaskStatus(state, payload) {
       state.allTasks[state.fireBaseKey].status = payload
     },
@@ -58,6 +67,24 @@ export default createStore({
   },
 
   actions: {
+    async removeTaskToArchive(context) {
+      try {
+        await fetch(context.state.databaseArchiveUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(context.getters.getCurrentTask)
+        })
+        await fetch(`${context.state.databaseUrl}/${context.getters.fireBaseKey}.json`, {
+          method: 'DELETE'
+        })
+        context.commit('deleteTask', context.getters.fireBaseKey)
+      } catch (e) {
+        console.log(e.message())
+      }
+    },
+
     async updateAllTasksInBD(context, {key, status}) {
       const url = `${context.state.databaseUrl}/${key}/status.json`
       try {
