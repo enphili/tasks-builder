@@ -21,7 +21,7 @@ export default {
     const store = useStore()
     const route = useRoute()
 
-    const reportedID = Number(route.params.taskID)
+    const reportedID = Number(route.params.taskID) ? Number(route.params.taskID) : 'ID отсутствует'
     const isTaskExists = computed(() => !!store.getters.allTasksInArray.find(task => task.id === reportedID))
 
     return {

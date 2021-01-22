@@ -13,7 +13,7 @@ export default createStore({
       },
       currentTaskID: '',
       fireBaseKey: '',
-      databaseUrl: 'https://spatasksbuilder-default-rtdb.europe-west1.firebasedatabase.app/tasks.json'
+      databaseUrl: 'https://spatasksbuilder-default-rtdb.europe-west1.firebasedatabase.app/tasks'
     }
   },
 
@@ -58,15 +58,15 @@ export default createStore({
   },
 
   actions: {
-    async updateAllTasksInBD(context, payload) {
-      const url = `https://spatasksbuilder-default-rtdb.europe-west1.firebasedatabase.app/tasks/${payload.key}.json`
+    async updateAllTasksInBD(context, {key, status}) {
+      const url = `${context.state.databaseUrl}/${key}/status.json`
       try {
         await fetch(url, {
-          method: 'PATCH',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(payload.status)
+          body: JSON.stringify(status)
         })
       } catch (e) {
         console.log(e.message)
@@ -83,7 +83,7 @@ export default createStore({
        description: payload.description
      }
      try {
-       await fetch(context.state.databaseUrl, {
+       await fetch(context.state.databaseUrl + '.json', {
          method: 'POST',
          headers: {
            'Content-Type': 'application/json'
@@ -98,7 +98,7 @@ export default createStore({
 
     async getAllTasks(context) {
       try {
-        const response = await fetch(context.state.databaseUrl)
+        const response = await fetch(context.state.databaseUrl + '.json')
         const data = await response.json()
         data ? context.commit('updateTasks', data) : console.log('нет данных')
       } catch (e) {
