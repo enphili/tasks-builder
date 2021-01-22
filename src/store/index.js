@@ -67,61 +67,61 @@ export default createStore({
   },
 
   actions: {
-    async removeTaskToArchive(context) {
-      try {
-        await fetch(context.state.databaseArchiveUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(context.getters.getCurrentTask)
-        })
-        await fetch(`${context.state.databaseUrl}/${context.getters.fireBaseKey}.json`, {
-          method: 'DELETE'
-        })
-        context.commit('deleteTask', context.getters.fireBaseKey)
-      } catch (e) {
-        console.log(e.message())
-      }
-    },
+    // async removeTaskToArchive(context) {
+    //   try {
+    //     await fetch(context.state.databaseArchiveUrl, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       },
+    //       body: JSON.stringify(context.getters.getCurrentTask)
+    //     })
+    //     await fetch(`${context.state.databaseUrl}/${context.getters.fireBaseKey}.json`, {
+    //       method: 'DELETE'
+    //     })
+    //     context.commit('deleteTask', context.getters.fireBaseKey)
+    //   } catch (e) {
+    //     console.log(e.message())
+    //   }
+    // },
 
-    async updateAllTasksInBD(context, {key, status}) {
-      const url = `${context.state.databaseUrl}/${key}/status.json`
-      try {
-        await fetch(url, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(status)
-        })
-      } catch (e) {
-        console.log(e.message)
-      }
-    },
+    // async updateAllTasksInBD(context, {key, status}) {
+    //   const url = `${context.state.databaseUrl}/${key}/status.json`
+    //   try {
+    //     await fetch(url, {
+    //       method: 'PUT',
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       },
+    //       body: JSON.stringify(status)
+    //     })
+    //   } catch (e) {
+    //     console.log(e.message)
+    //   }
+    // },
 
-    async saveNewTask(context, payload) {
-     const data = {
-       id: Math.floor(Date.now() / 1000),
-       title: payload.title,
-       status: payload.status,
-       createData: new Date().toLocaleDateString(),
-       deadlineData: new Date(payload.deadlineData).toLocaleDateString(),
-       description: payload.description
-     }
-     try {
-       await fetch(context.state.databaseUrl + '.json', {
-         method: 'POST',
-         headers: {
-           'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(data)
-       })
-       await context.dispatch('getAllTasks')
-     } catch (e) {
-       console.log(e.message)
-     }
-    },
+    // async saveNewTask(context, payload) {
+    //  const data = {
+    //    id: Math.floor(Date.now() / 1000),
+    //    title: payload.title,
+    //    status: payload.status,
+    //    createData: new Date().toLocaleDateString(),
+    //    deadlineData: new Date(payload.deadlineData).toLocaleDateString(),
+    //    description: payload.description
+    //  }
+    //  try {
+    //    await fetch(context.state.databaseUrl + '.json', {
+    //      method: 'POST',
+    //      headers: {
+    //        'Content-Type': 'application/json'
+    //      },
+    //      body: JSON.stringify(data)
+    //    })
+    //    await context.dispatch('getAllTasks')
+    //  } catch (e) {
+    //    console.log(e.message)
+    //  }
+    // },
 
     async getAllTasks(context) {
       try {

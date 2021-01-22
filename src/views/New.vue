@@ -25,6 +25,7 @@
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import {strRandomGenerate} from '@/utilities/strgenerator'
 
 export default {
   setup() {
@@ -36,16 +37,18 @@ export default {
     const newTaskForm = ref(null)
 
     const isFields = computed(() => (title.value === '' || deadlineData.value === '' || description.value === ''))
-
     const status = computed(() => (new Date(deadlineData.value) - Date.now()) <= 0 ? 'danger' : 'primary')
 
     const createNewTask = () => {
-      store.dispatch('saveNewTask', {
+      const newKey = `-MR_${strRandomGenerate()}`
+      store.state.allTasks[newKey] = {
+        id: Math.floor(Date.now() / 1000),
         title: title.value.trim(),
         status: status.value,
-        deadlineData: deadlineData.value,
+        createData: new Date().toLocaleDateString(),
+        deadlineData: new Date(deadlineData.value).toLocaleDateString(),
         description: description.value.trim()
-      })
+      }
       newTaskForm.value.reset()
       router.push('/dashboard')
     }

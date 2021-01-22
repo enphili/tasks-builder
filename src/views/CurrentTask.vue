@@ -44,22 +44,19 @@ export default {
     store.commit('setCurrentFireBaseKey', firebaseNameKey.value)
 
     const deleteTask = () => {
-      store.dispatch('removeTaskToArchive')
+      store.commit('deleteTask', firebaseNameKey.value)
     }
 
     const cancelTask = () => {
       store.commit('updateTaskStatus', 'danger')
-      store.dispatch('updateAllTasksInBD', {key: firebaseNameKey.value, status: 'danger'})
     }
 
     const takeToWork = () => {
       store.commit('updateTaskStatus', 'warning')
-      store.dispatch('updateAllTasksInBD', {key: firebaseNameKey.value, status: 'warning'})
     }
 
     const completeTask = () => {
       store.commit('updateTaskStatus', 'completed')
-      store.dispatch('updateAllTasksInBD', {key: firebaseNameKey.value, status: 'completed'})
     }
 
     return {
