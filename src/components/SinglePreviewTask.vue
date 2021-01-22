@@ -31,9 +31,7 @@ export default {
     }
   },
 
-  components: {
-    AppStatus
-  }
+  components: {AppStatus}
 }
 </script>
 
