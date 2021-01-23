@@ -16,7 +16,7 @@
 
 <script>
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed, isRef } from 'vue'
 import SinglePreviewTask from '@/components/SinglePreviewTask'
 import TheAllActiveTasksCount from '@/components/TheAllActiveTasksCount'
 import {sortTasksObject} from '@/utilities/sortTaskObject'
@@ -25,8 +25,12 @@ export default {
   setup() {
     const store = useStore()
 
-    const allTasks = computed(() => store.getters.allTasks)
-    const isTask = computed(() => Object.keys(allTasks.value).length > 0)
+    const allTasks = computed(() => store.getters['tasks/allTasks'])
+    console.log(isRef(allTasks))
+    console.log(allTasks)
+    console.log(allTasks.value)
+    console.log(Object.keys(allTasks.value))
+    const isTask = computed(() => Object.keys(allTasks).length > 0)
     const allTasksArray = computed(() => sortTasksObject(allTasks.value))
 
     return {allTasks, isTask, allTasksArray}

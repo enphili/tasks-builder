@@ -12,8 +12,8 @@ export default {
   setup() {
     const store = useStore()
 
-    const pendingTaskCount = computed(() => store.getters.allTasksInArray.filter(el => el.status === 'primary').length)
-    const activeTaskCount = computed(() => store.getters.allTasksInArray.filter(el => el.status === 'warning').length)
+    const pendingTaskCount = computed(() => store.getters['tasks/allTasksInArray'].filter(el => el.status === 'primary').length)
+    const activeTaskCount = computed(() => store.getters['tasks/allTasksInArray'].filter(el => el.status === 'warning').length)
 
     return {
       pendingTaskCount,
