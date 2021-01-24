@@ -11,8 +11,9 @@ import TheNavbar from './components/TheNavbar'
 export default {
 
   beforeMount() {
-    this.$store.dispatch('tasks/getAllTasks')
+    this.$store.dispatch('getAllTasks')
   },
+
   components: {TheNavbar}
 }
 </script>

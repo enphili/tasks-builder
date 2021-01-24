@@ -12,7 +12,7 @@ export default {
   setup(props) {
     const store = useStore()
 
-    const changeText = computed(() => props.type ? store.getters.statusText[props.type] : store.getters.statusText.default)
+    const changeText = computed(() => props.type ? store.state.statusText[props.type] : store.state.statusText.default)
 
     return {changeText}
   }

@@ -5,6 +5,7 @@ export const sortTasksObject = (obj) => {
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
       obj[key].firebaseKey = key
+      obj[key].id = String(obj[key].id)
       array.push(obj[key])
     }
   }

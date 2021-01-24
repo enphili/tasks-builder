@@ -21,7 +21,7 @@ export default {
   setup(props) {
     const store = useStore()
 
-    const deleteTask = () => store.commit('tasks/deleteTask', props.firebaseKey)
+    const deleteTask = () => store.commit('deleteTask', props.firebaseKey)
 
     return {
       taskTitle: props.task.title,

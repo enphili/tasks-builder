@@ -4,36 +4,30 @@
   <div v-else>
     <TheAllActiveTasksCount />
 
-    <component
-      is="SinglePreviewTask"
-      v-for="task in allTasksArray"
+    <single-preview-task
+      v-for="task in allTasksInArray"
       :key="task.firebaseKey"
       :task="task"
       :firebaseKey="task.firebaseKey"
-    ></component>
+    ></single-preview-task>
+
   </div>
 </template>
 
 <script>
 import { useStore } from 'vuex'
-import { computed, isRef } from 'vue'
+import { computed } from 'vue'
 import SinglePreviewTask from '@/components/SinglePreviewTask'
 import TheAllActiveTasksCount from '@/components/TheAllActiveTasksCount'
-import {sortTasksObject} from '@/utilities/sortTaskObject'
 
 export default {
   setup() {
     const store = useStore()
 
-    const allTasks = computed(() => store.getters['tasks/allTasks'])
-    console.log(isRef(allTasks))
-    console.log(allTasks)
-    console.log(allTasks.value)
-    console.log(Object.keys(allTasks.value))
-    const isTask = computed(() => Object.keys(allTasks).length > 0)
-    const allTasksArray = computed(() => sortTasksObject(allTasks.value))
+    const allTasksInArray = computed(() => store.getters.allTasksInArray)
+    const isTask = computed(() => allTasksInArray.value.length > 0)
 
-    return {allTasks, isTask, allTasksArray}
+    return {isTask, allTasksInArray}
   },
 
   components: {SinglePreviewTask, TheAllActiveTasksCount}
